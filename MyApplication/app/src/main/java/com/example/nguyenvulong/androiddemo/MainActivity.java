@@ -1,6 +1,8 @@
 package com.example.nguyenvulong.androiddemo;
 
 import android.app.Dialog;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -48,7 +50,7 @@ import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener  {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private List<Content> contentList;
     private List<AlertContent> alertContentList;
     private ChatAdapter chatAdapter;
@@ -58,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private RecyclerView recyclerViewAlert;
     private TextView example01;
     private TextView example02;
+
 //private ListView recyclerViewAlert;
 
     ImageButton btnSend;
@@ -66,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     String urlTong;
     String output;
     String input;
+    ArrayList<String> arrayListOutput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        arrayListOutput = new ArrayList<>();
         btnSend = (ImageButton) findViewById(R.id.btnSend);
         editInput = (EditText) findViewById(R.id.editInput);
 
@@ -101,7 +106,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             Content content = new Content(input, output);
                             contentList.add(content);
                             chatAdapter.notifyDataSetChanged();
-                            alertContentList.add(new AlertContent(output));
+                            arrayListOutput.add(output);
+                           // alertContentList.add(new AlertContent(output));
                             editInput.setText("");
 
                         } catch (JSONException e) {
@@ -130,6 +136,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        getMenuInflater().inflate(R.menu.activity_main, menu);
 //        return true;
 //    }
+
+    public void passingData(String output) {
+        Bundle bundle = new Bundle();
+        bundle.putStringArrayList("output", arrayListOutput);
+        FragmentBox fragmentBox = new FragmentBox();
+        fragmentBox.setArguments(bundle);
+    }
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -169,16 +182,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void showViewAnalysisDialog() {
-        alertAdapter = new AlertAdapter(this, alertContentList);
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setView(R.layout.custom_alert_dialog);
-        builder.setCancelable(true);
-        builder.create();
-        AlertDialog a = builder.show();
-        recyclerViewAlert = (RecyclerView) a.findViewById(R.id.recyclerAlertDialog);
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerViewAlert.setLayoutManager(mLayoutManager);
-        recyclerViewAlert.setAdapter(alertAdapter);
+//        alertAdapter = new AlertAdapter(this, alertContentList);
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setView(R.layout.custom_alert_dialog);
+//        builder.setCancelable(true);
+//        builder.create();
+//        AlertDialog a = builder.show();
+//        recyclerViewAlert = (RecyclerView) a.findViewById(R.id.recyclerAlertDialog);
+//        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+//        recyclerViewAlert.setLayoutManager(mLayoutManager);
+//        recyclerViewAlert.setAdapter(alertAdapter);
+
+        Bundle bundle = new Bundle();
+        bundle.putStringArrayList("output", arrayListOutput);
+        FragmentBox fragmentBox = new FragmentBox();
+        fragmentBox.setArguments(bundle);
+        android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
+        android.support.v4.app.FragmentTransaction transaction = fm.beginTransaction().replace(R.id.fragmentContent, fragmentBox).addToBackStack(null);
+        transaction.commit();
+        editInput.setEnabled(false);
 
 
     }
@@ -199,6 +221,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
     }
+
     private void addControl() {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerChat);
         contentList = new ArrayList<>();

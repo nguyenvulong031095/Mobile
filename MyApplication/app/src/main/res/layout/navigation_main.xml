@@ -21,6 +21,7 @@
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main"
         app:itemTextColor="@color/colorIndivateTab"
+        app:itemTextAppearance="?android:attr/textAppearanceLarge"
         app:menu="@menu/activity_main" />
 
 </android.support.v4.widget.DrawerLayout>
