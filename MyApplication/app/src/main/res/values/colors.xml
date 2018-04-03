@@ -6,5 +6,7 @@
     <color name="grey_200">#EEEEEE</color>
     <color name="colorIndivateTab">#FFFFFF</color>
     <color name="black">#4F6D7B</color>
-
+    <color name="pastel">#3aa5f8</color>
+    <color name="lesspastel">#d0e6f6</color>
+    <color name="mauxanhdam">#0930b1</color>
 </resources>

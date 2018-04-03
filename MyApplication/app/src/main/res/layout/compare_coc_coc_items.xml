@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    android:scrollbars="vertical">
+
+    <ScrollView
+        android:id="@+id/Scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:background="@drawable/rounded_corner4"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:scrollbars="vertical">
+
+        <RelativeLayout
+            android:paddingTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+
+                android:id="@+id/ExampleScroll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/rounded_corner2"
+                android:orientation="vertical"
+                android:scrollbars="vertical">
+
+                <TextView
+                    android:id="@+id/Ex"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:text="EXAMPLE"
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvCompare"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="a hi hi"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="30dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:background="@drawable/rounded_corner2"
+                android:layout_below="@+id/ExampleScroll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/Coccoc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:text="COC COC"
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/imgViewCompare"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center" />
+
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+    </ScrollView>
+
+</RelativeLayout>

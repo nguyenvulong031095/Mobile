@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
 
     <TableLayout
+        android:background="@drawable/rounded_corner4"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:stretchColumns="1">
+
+
 
         <TableRow
             android:background="@drawable/cell_shape_boder">
@@ -29,8 +33,10 @@
                 android:background="@drawable/cell_shape_boder"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="view" />
+                android:text="xem" />
         </TableRow>
 
     </TableLayout>
+
+
 </LinearLayout>

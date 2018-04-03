@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/menuAction">
+
+
     <item
+
         android:id="@+id/viewAnalysis"
-        android:title="View Analysis" />
+        android:icon="@drawable/view"
+        android:title="Xem Phân Tích " />
     <item
         android:id="@+id/example"
-        android:title="Example" />
+        android:icon="@drawable/book"
+        android:title="Ví Dụ "/>
+    <item
+        android:id="@+id/compare"
+        android:icon="@drawable/compare"
+        android:title="So Sánh "/>
+
+
 </menu>

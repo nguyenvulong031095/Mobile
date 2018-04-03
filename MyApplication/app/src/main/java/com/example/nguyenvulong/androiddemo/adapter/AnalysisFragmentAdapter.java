@@ -1,14 +1,16 @@
-package com.example.nguyenvulong.androiddemo;
+package com.example.nguyenvulong.androiddemo.adapter;
 
 import android.app.Activity;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.nguyenvulong.androiddemo.entity.AnalysisFragmentContent;
+import com.example.nguyenvulong.androiddemo.IListAction;
+import com.example.nguyenvulong.androiddemo.R;
 
 import java.util.List;
 
@@ -17,17 +19,19 @@ import java.util.List;
  */
 
 
-public class AlertAdapter extends RecyclerView.Adapter<AlertAdapter.AlertViewHolder> {
-    private List<AlertContent> alertContentList;
+public class AnalysisFragmentAdapter extends RecyclerView.Adapter<AnalysisFragmentAdapter.AlertViewHolder>  {
+    private List<AnalysisFragmentContent> analysisFragmentContentList;
+    private IListAction i;
     private Activity activity;
     /**Contructor*/
-    public AlertAdapter(Activity activity,List<AlertContent> alertContentList) {
+    public AnalysisFragmentAdapter(Activity activity, List<AnalysisFragmentContent> analysisFragmentContentList, IListAction i) {
         this.activity = activity;
-        this.alertContentList = alertContentList;
+        this.analysisFragmentContentList = analysisFragmentContentList;
+        this.i = i;
     }
 
-    public void add(AlertContent alertContent){
-        alertContentList.add(alertContent);
+    public void add(AnalysisFragmentContent analysisFragmentContent){
+        analysisFragmentContentList.add(analysisFragmentContent);
         notifyDataSetChanged();
     }
 
@@ -48,19 +52,19 @@ public class AlertAdapter extends RecyclerView.Adapter<AlertAdapter.AlertViewHol
     public AlertViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         /** Get layout */
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_alert_dialog,parent,false);
+                .inflate(R.layout.item_analysis_fragment,parent,false);
         return new AlertViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(AlertViewHolder holder, int position) {
         /** Set Value*/
-        AlertContent alertContent = alertContentList.get(position);
-        holder.outPutAlertMessage.setText(alertContent.getOutputAlertMessageText());
+        final AnalysisFragmentContent analysisFragmentContent = analysisFragmentContentList.get(position);
+        holder.outPutAlertMessage.setText(analysisFragmentContent.getOutputAlertMessageText());
         holder.btnAnlysis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog();
+                i.doSomething(analysisFragmentContent.getOutputAlertMessageText());
             }
         });
 
@@ -74,16 +78,10 @@ public class AlertAdapter extends RecyclerView.Adapter<AlertAdapter.AlertViewHol
         });
     }
 
-    public void showDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setView(R.layout.analysis);
-        builder.setCancelable(true);
-        builder.create();
-        builder.show();
-    }
+
 
     @Override
     public int getItemCount() {
-        return alertContentList.size();
+        return analysisFragmentContentList.size();
     }
 }

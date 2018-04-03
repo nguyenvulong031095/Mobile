@@ -1,10 +1,10 @@
-package com.example.nguyenvulong.androiddemo;
+package com.example.nguyenvulong.androiddemo.entity;
 
 /**
  * Created by nguyenvulong on 3/3/18.
  */
 
-public class AlertContent {
+public class AnalysisFragmentContent {
     private String outputAlertMessageText;
 
     public String getOutputAlertMessageText() {
@@ -16,10 +16,10 @@ public class AlertContent {
     }
 
 
-    public AlertContent() {
+    public AnalysisFragmentContent() {
     }
 
-    public AlertContent(String outputAlertMessageText) {
+    public AnalysisFragmentContent(String outputAlertMessageText) {
         this.outputAlertMessageText = outputAlertMessageText;
 
     }

@@ -1,13 +1,13 @@
-package com.example.nguyenvulong.androiddemo;
+package com.example.nguyenvulong.androiddemo.activity;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.example.nguyenvulong.androiddemo.R;
 
 /**
  * Created by nguyenvulong on 3/5/18.
@@ -26,13 +26,7 @@ public class LoadingActivity extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loading_main);
-      //  txtPercentage = (TextView) findViewById(R.id.txtPercentage);
-//        //reset progress bar status
-//        progressBarStatus = 0;
-//        //reset filesize
-//        fileSize = 0;
-//        progressBars.setProgress(0);
-//        progressBars.setMax(100);
+
         new Thread(new Runnable() {
             public void run() {
                 while (progressBarStatus < 100) {
