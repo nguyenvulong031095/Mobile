@@ -180,10 +180,13 @@ public class ViewAnalysisFragment extends Fragment implements showAlertChart {
         dataSet.setSelectionShift(2f);
 //        dataSet.setColors( Color.rgb(187,177,197),Color.rgb(149,177,197),Color.rgb(158, 236, 197));
         dataSet.setColors(Color.rgb(187, 177, 197), Color.rgb(149, 177, 197), Color.rgb(158, 236, 197),
-                Color.rgb(45, 148, 197), Color.rgb(131, 148, 42), Color.rgb(233, 148, 42),
+                Color.rgb(45, 148, 197),  Color.rgb(131, 148, 42),
                 Color.rgb(233, 238, 249), Color.rgb(233, 55, 249), Color.rgb(153, 11, 249),
                 Color.rgb(26, 172, 238), Color.rgb(26, 85, 32), Color.rgb(225, 240, 32),
-                Color.rgb(255, 240, 25), Color.rgb(255, 137, 25), Color.rgb(255, 189, 140)
+                Color.rgb(255, 240, 25), Color.rgb(255, 137, 25), Color.rgb(255, 189, 140),
+                Color.rgb(233, 148, 42), Color.rgb(229 ,70 ,70), Color.rgb(199,195,0),
+                Color.rgb(131,199,93), Color.rgb(0,160,107), Color.rgb(0,166,173),Color.rgb(0,140,94),
+                Color.rgb(115,136,193), Color.rgb(160,149,196), Color.rgb(183,183,183)
         );
         PieData data = new PieData(dataSet);
 

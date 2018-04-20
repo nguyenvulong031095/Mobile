@@ -1,5 +1,6 @@
 package com.example.nguyenvulong.androiddemo.entity;
 
+
 /**
  * Created by nguyenvulong on 3/3/18.
  */

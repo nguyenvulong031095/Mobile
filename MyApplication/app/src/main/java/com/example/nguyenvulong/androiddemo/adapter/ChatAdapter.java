@@ -62,9 +62,14 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         /** Set Value*/
         Content content = contentList.get(position);
         holder.inputMessage.setText(content.getInputMessageText());
-        holder.outPutMessage.setText("option 1: " + content.getOutputMessageText() + "\n"
-                + "option 2: " + content.getOutput2MessageText() + "\n"
-                + "option 3: " + content.getOutput3MessageText());
+        if(content.getFlag()){
+            holder.outPutMessage.setText(content.getOutputMessageText());
+        }else{
+            holder.outPutMessage.setText("option 1: " + content.getOutputMessageText() + "\n"
+                    + "option 2: " + content.getOutput2MessageText() + "\n"
+                    + "option 3: " + content.getOutput3MessageText());
+        }
+
 
 //        int img_icon = 0;
 //        if (content.getInputMessageText().equals("hom nay toi di hoc")) {

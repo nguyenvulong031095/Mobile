@@ -1,10 +1,12 @@
 package com.example.nguyenvulong.androiddemo.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by nguyenvulong on 3/16/18.
  */
 
-public class ViewDetailFragmentContent {
+public class ViewDetailFragmentContent  implements Serializable{
     private String proba;
     private String predict;
     private String word;

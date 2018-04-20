@@ -45,9 +45,6 @@ public class FragmentBox extends Fragment implements IListAction {
         Intent data = getActivity().getIntent();
         viewDetailFragmentContentList = (ArrayList<ViewDetailFragmentContent>) data.getSerializableExtra("object");
 
-        for (int i = 0; i < viewDetailFragmentContentList.size();i++){
-            System.out.println("C ne" + viewDetailFragmentContentList.get(i).getInput());
-        }
 
         if (getArguments() != null) {
             arrayListOutput = getArguments().getStringArrayList("input");

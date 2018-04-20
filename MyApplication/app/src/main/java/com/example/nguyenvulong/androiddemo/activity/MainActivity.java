@@ -9,6 +9,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -48,10 +50,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements Serializable,NavigationView.OnNavigationItemSelectedListener {
     private List<Content> contentList;
     private ChatAdapter chatAdapter;
     private EditText editInput;
@@ -63,8 +66,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     ImageButton btnSend;
     Button btnAnalysis;
-    String urlPredict = "http://192.168.1.103:3000/predict/";
-    String urlAnalysis = "http://192.168.1.103:3000/analysis/";
+    String urlPredict = "http://172.20.10.2:3000/predict/";
+    String urlAnalysis = "http://172.20.10.2:3000/analysis/";
     //    String urlPicture = "http://192.168.1.142:3000/picture/";
     String urlTongPredict;
     String urlTongAnalysis;
@@ -74,11 +77,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ArrayList<ViewCompareContent> arrayListOutput;
     JSONArray jsonArray;
     String formatConfusionMatrix;
+    Content content;
+    int count = 0;
+    int countCharacter = 0;
+    int countSpace = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigation_main);
+
+
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -89,6 +98,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         btnSend = (ImageButton) findViewById(R.id.btnSend);
         editInput = (EditText) findViewById(R.id.editInput);
 
+
+        if ((ArrayList<ViewDetailFragmentContent>) getIntent().getSerializableExtra("object_2") != null) {
+            viewDetailFragmentContentList = (ArrayList<ViewDetailFragmentContent>) getIntent().getSerializableExtra("object_2");
+        }
+        if ((ArrayList<String>) getIntent().getSerializableExtra("input_2") != null) {
+            arrayListInput = (ArrayList<String>) getIntent().getSerializableExtra("input_2");
+        }
+
+
+        editInput.setText(getIntent().getStringExtra("text"));
         addControl();
 
         drawerLayout.setOnTouchListener(new View.OnTouchListener() {
@@ -99,10 +118,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             }
         });
+
+        drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                count = 0;
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+
+            }
+        });
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                input = editInput.getText().toString();
+                input = editInput.getText().toString().trim();
                 if (input.isEmpty()) {
                     System.out.println("khong lam nhe");
                 } else {
@@ -117,14 +158,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         public void onResponse(JSONObject response) {
                             try {
 
-                                output = response.getString("output1");
-                                output2 = response.getString("output2");
-                                output3 = response.getString("output3");
-                                Content content = new Content(input, output, output2, output3);
+                                output = response.getString("output1").trim().replace("[", "").replace("]", "");
+                                output2 = response.getString("output2").trim().replace("[", "").replace("]", "");
+                                output3 = response.getString("output3").trim().replace("[", "").replace("]", "");
+
+                                if (output.equals(output2)) {
+                                    content = new Content(input, output, true);
+                                } else {
+                                    content = new Content(input, output, output2, output3);
+                                    arrayListInput.add(input);
+                                }
+
+
                                 ViewCompareContent viewCompareContent = new ViewCompareContent(input, output, output2, output3);
                                 contentList.add(content);
                                 chatAdapter.notifyDataSetChanged();
-                                arrayListInput.add(input);
+
                                 arrayListOutput.add(viewCompareContent);
                                 editInput.setText("");
 
@@ -175,11 +224,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+//
+//        return true;
+//    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
-
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     public void calculateJsonArray(JSONArray jsonArray) throws JSONException {
@@ -218,20 +273,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 showExampleFragment();
                 drawerLayout.closeDrawer(Gravity.LEFT);
                 return true;
-            case R.id.compare:
-                showCompareFragment();
-                drawerLayout.closeDrawer(Gravity.LEFT);
-                return true;
+//            case R.id.compare:
+//                showCompareFragment();
+//                drawerLayout.closeDrawer(Gravity.LEFT);
+//                return true;
             default:
                 return true;
         }
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.openNavigation:
-                drawerLayout.openDrawer(Gravity.LEFT);
+                if (count == 0) {
+                    drawerLayout.openDrawer(Gravity.LEFT);
+                    count++;
+                } else {
+                    drawerLayout.closeDrawer(Gravity.LEFT);
+                    count = 0;
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -257,12 +319,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void showExampleFragment() {
         FragmentExample fragmentExample = new FragmentExample();
+        getIntent().putExtra("object", viewDetailFragmentContentList);
+        Bundle bundle = new Bundle();
+        bundle.putStringArrayList("input", arrayListInput);
+        fragmentExample.setArguments(bundle);
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction().replace(R.id.fragmentContent, fragmentExample, "home").addToBackStack(null);
         transaction.commit();
         editInput.setEnabled(false);
 
     }
+
 
     public void showCompareFragment() {
 //        getIntent().putExtra("object_output", arrayListOutput);
@@ -284,7 +351,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(chatAdapter);
     }
-
 
 
 }

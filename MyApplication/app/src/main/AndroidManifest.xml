@@ -12,18 +12,18 @@
         android:allowBackup="true"
         android:configChanges="keyboardHidden|orientation"
         android:icon="@drawable/images"
-        android:label="Meachine Learning"
+        android:label="Machine Learning"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".activity.LoadingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.LoadingActivity"></activity>
+        <activity android:name=".activity.MainActivity"></activity>
         <activity android:name=".activity.text"></activity>
     </application>
 

@@ -27,14 +27,19 @@ import com.example.nguyenvulong.androiddemo.ExampleInterface;
 import com.example.nguyenvulong.androiddemo.IListAction;
 import com.example.nguyenvulong.androiddemo.R;
 import com.example.nguyenvulong.androiddemo.activity.MainActivity;
+import com.example.nguyenvulong.androiddemo.adapter.AnalysisFragmentAdapter;
 import com.example.nguyenvulong.androiddemo.adapter.ExampleAdapter;
+import com.example.nguyenvulong.androiddemo.adapter.ViewDetailFragmentAdapter;
+import com.example.nguyenvulong.androiddemo.entity.AnalysisFragmentContent;
 import com.example.nguyenvulong.androiddemo.entity.Content;
 import com.example.nguyenvulong.androiddemo.entity.Example;
 import com.example.nguyenvulong.androiddemo.entity.ViewCompareContent;
+import com.example.nguyenvulong.androiddemo.entity.ViewDetailFragmentContent;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +47,7 @@ import java.util.List;
  * Created by nguyenvulong on 3/16/18.
  */
 
-public class FragmentExample extends Fragment implements ExampleInterface {
+public class FragmentExample extends Fragment implements ExampleInterface, Serializable {
     String urlPredict = "http://172.20.10.2:3000/predict/";
     private String urlTongPredict;
     private RecyclerView recyclerView;
@@ -52,14 +57,16 @@ public class FragmentExample extends Fragment implements ExampleInterface {
     private ArrayList<Example> exampleArrayList = new ArrayList<>();
     String output, output2, output3;
     String input;
-
-
+    private ArrayList<ViewDetailFragmentContent> viewDetailFragmentContentLists;
+    private List<AnalysisFragmentContent> analysisFragmentContentList = new ArrayList<>();
+    private ArrayList<String> arrayListOutputBackUp;
     private EditText editInput;
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.example_fragment, container, false);
         editInput = (EditText) getActivity().findViewById(R.id.editInput);
+        viewDetailFragmentContentLists = new ArrayList<>();
         exampleArrayList.clear();
         arrayListOutput = new ArrayList<>();
         exampleArrayList.add(new Example("Hom nay la mot ngay nang dep, toi khong muon di hoc"));
@@ -73,7 +80,18 @@ public class FragmentExample extends Fragment implements ExampleInterface {
         exampleArrayList.add(new Example("May ngay nay troi hay mua, mong sao ngay mai troi dung mua nua de toi con di choi"));
         exampleArrayList.add(new Example("Ngay hom nay la ngay tuyet voi, toi cam thay rat vui vi dat diem cao"));
 
-        System.out.println(exampleArrayList.size());
+
+        if ((ArrayList<ViewDetailFragmentContent>) getActivity().getIntent().getSerializableExtra("object") != null) {
+            viewDetailFragmentContentLists = (ArrayList<ViewDetailFragmentContent>) getActivity().getIntent().getSerializableExtra("object");
+        }
+
+        if (getArguments() != null) {
+            arrayListOutputBackUp = getArguments().getStringArrayList("input");
+            for (int i = 0; i < arrayListOutputBackUp.size(); i++) {
+                analysisFragmentContentList.add(new AnalysisFragmentContent(arrayListOutputBackUp.get(i)));
+            }
+        }
+
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerExample);
         exampleAdapter = new ExampleAdapter(getActivity(), exampleArrayList, this);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
@@ -141,6 +159,14 @@ public class FragmentExample extends Fragment implements ExampleInterface {
 //            }
 //    }).start();
 //
-           editInput.setText(inputSentences);
-          getActivity().onBackPressed();
-}}
+
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+        intent.putExtra("object_2",viewDetailFragmentContentLists);
+        intent.putStringArrayListExtra("input_2", arrayListOutputBackUp);
+        intent.putExtra("text", inputSentences);
+        startActivity(intent);
+//        editInput.setText(inputSentences);
+
+//          getActivity().onBackPressed();
+    }
+}

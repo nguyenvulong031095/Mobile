@@ -13,10 +13,10 @@
         android:id="@+id/example"
         android:icon="@drawable/book"
         android:title="Ví Dụ "/>
-    <item
-        android:id="@+id/compare"
-        android:icon="@drawable/compare"
-        android:title="So Sánh "/>
+    <!--<item-->
+        <!--android:id="@+id/compare"-->
+        <!--android:icon="@drawable/compare"-->
+        <!--android:title="So Sánh "/>-->
 
 
 </menu>

@@ -24,6 +24,7 @@
         android:textStyle="bold" />
 
     <TextView
+        android:textAlignment="textStart"
         android:id="@+id/tvPredictionValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -49,27 +50,13 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/rounded_corner5"
         android:padding="10dp"
+        android:typeface="sans"
         android:text="AllLabelWord"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/black"
         android:textSize="25dp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/tvProba"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/rounded_corner5"
-        android:padding="10dp"
-        android:text="probability"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/black"
-        android:textSize="25dp"
-        android:textStyle="bold" />
+        android:textStyle="bold" >
+    </TextView>
 
 
     <TextView
@@ -103,23 +90,6 @@
         android:textColor="@color/black"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/tvConfusionMatrix"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_gravity="right"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/rounded_corner5"
-        android:padding="10dp"
-        android:text="confusion_matrix"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/black"
-        android:textSize="5dp"
-        android:textStyle="bold"
-        android:typeface="monospace" />
 
 
     <ImageButton
