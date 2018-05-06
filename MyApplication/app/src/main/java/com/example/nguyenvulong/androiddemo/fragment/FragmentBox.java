@@ -31,11 +31,10 @@ public class FragmentBox extends Fragment implements IListAction {
 
     private RecyclerView recyclerView;
     private List<AnalysisFragmentContent> analysisFragmentContentList = new ArrayList<>();
-    private AnalysisFragmentAdapter analysisFragmentAdapter;
-    private ViewDetailFragmentContent viewDetailFragmentContent;
-    private ArrayList<ViewDetailFragmentContent> viewDetailFragmentContentList;
+    private AnalysisFragmentAdapter analysisFragmentAdapter  ;
+    private ArrayList<ViewDetailFragmentContent> viewDetailFragmentContentList = new ArrayList<>();
 
-    private ArrayList<String> arrayListOutput;
+    private ArrayList<String> arrayListOutput = new ArrayList<>();
     private EditText editInput;
 
 

@@ -66,8 +66,8 @@ public class MainActivity extends AppCompatActivity implements Serializable,Navi
 
     ImageButton btnSend;
     Button btnAnalysis;
-    String urlPredict = "http://172.20.10.2:3000/predict/";
-    String urlAnalysis = "http://172.20.10.2:3000/analysis/";
+    String urlPredict = "http://192.168.0.106:3000/predict/";
+    String urlAnalysis = "http://192.168.0.106:3000/analysis/";
     //    String urlPicture = "http://192.168.1.142:3000/picture/";
     String urlTongPredict;
     String urlTongAnalysis;
@@ -242,16 +242,16 @@ public class MainActivity extends AppCompatActivity implements Serializable,Navi
             JSONObject object = (JSONObject) jsonArray.get(i);
             String stringFormat = object.getString("classification_report");
             String classificationFormat = "    " + "Class".trim() + " " + stringFormat.trim();
-            String ConfusionMatrix = object.getString("confusion_matrix");
-            int length = ConfusionMatrix.length();
-            if (length == 0) {
-                formatConfusionMatrix = ConfusionMatrix;
-            } else {
-                formatConfusionMatrix = ConfusionMatrix.substring(1, length - 1);
-
-            }
-            ViewDetailFragmentContent viewDetailFragmentContent = new ViewDetailFragmentContent(object.getString("word"), object.getString("probability"), object.getString("predict_List"),
-                    input, object.getString("prediction_value"), object.getString("all_Lable"), classificationFormat, formatConfusionMatrix);
+//            String ConfusionMatrix = object.getString("confusion_matrix");
+//            int length = ConfusionMatrix.length();
+//            if (length == 0) {
+//                formatConfusionMatrix = ConfusionMatrix;
+//            } else {
+//                formatConfusionMatrix = ConfusionMatrix.substring(1, length - 1);
+//
+//            }
+            ViewDetailFragmentContent viewDetailFragmentContent = new ViewDetailFragmentContent(object.getString("word"),object.getString("prediction_value"),object.getString("all_Lable"), object.getString("probability"), object.getString("predict_List"),
+                    input,classificationFormat);
             viewDetailFragmentContentList.add(viewDetailFragmentContent);
         }
     }

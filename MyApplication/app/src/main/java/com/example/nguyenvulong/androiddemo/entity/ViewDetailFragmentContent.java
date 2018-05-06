@@ -36,7 +36,7 @@ public class ViewDetailFragmentContent  implements Serializable{
 
 
 
-    public ViewDetailFragmentContent(String word, String proba, String predict, String input, String predictionValue, String allLabelWord,String classificationReport,String confusionMatrix) {
+    public ViewDetailFragmentContent(String word,String predictionValue,String allLabelWord, String proba, String predict, String input,String classificationReport) {
         this.word = word;
         this.proba = proba;
         this.predict = predict;
@@ -44,7 +44,6 @@ public class ViewDetailFragmentContent  implements Serializable{
         this.predictionValue = predictionValue;
         this.allLabelWord = allLabelWord;
         this.classificationReport = classificationReport;
-        this.confusionMatrix = confusionMatrix;
     }
 
     public ViewDetailFragmentContent() {
